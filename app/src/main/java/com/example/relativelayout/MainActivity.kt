@@ -1,8 +1,11 @@
 package com.example.relativelayout
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.AdapterView
 import android.widget.SimpleAdapter
+import androidx.appcompat.app.AlertDialog
 import com.example.relativelayout.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +19,7 @@ private lateinit var binding: ActivityMainBinding
         setupListViewSimple()
     }
 
+    @SuppressLint("StringFormatInvalid")
     private fun setupListViewSimple(){
         val list = listOf(
             mapOf(
@@ -39,6 +43,20 @@ private lateinit var binding: ActivityMainBinding
             intArrayOf(R.id.tvOne, R.id.tvTwo)
         )
         binding.listView.adapter = adapter
+
+        binding.listView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            val selectedItemTitle = list[position][KEY_TITLE]
+            val selectedItemDescription = list[position][KEY_DESCRIPTION]
+
+            val clickItem = AlertDialog.Builder(this)
+                .setTitle(selectedItemTitle)
+                .setMessage(getString(R.string.click_item, selectedItemDescription))
+                .setPositiveButton("OK") {dialog, which ->}
+                .create()
+            clickItem.show()
+        }
+
+
     }
 
     companion object {

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RelativeLayout</string>
+    <string name="click_item">Click item in list %1$s</string>
 </resources>
